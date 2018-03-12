@@ -36,7 +36,7 @@ class Functions
     /**
      * 日数を時間に変換し、加算する
      * @param array $date
-     * @return string $time
+     * @return string 換算時間
      */
     public static function convertTime($date)
     {
@@ -44,9 +44,24 @@ class Functions
         if ($date["ymd"] != 0) {
             $hour = 24 * $date["ymd"];  // 1日を時間に変換
             $hour = ($date["h"] - 0) + $hour;
-            $time = (string)$hour . ":" . $date["i"];
+            $time = (string)$hour . "." . $date["i"];
             return $time;
         }
         return $date["hi"];
+    }
+
+    /**
+     * 日数を時間に変換し、加算する
+     * @param string $date1
+     * @param string $date2
+     * @return string 換算時間
+     */
+    public static function convertTime2($date1, $date2)
+    {
+        $date1 = strtotime($date1);
+        $date2 = strtotime($date2);
+        $time = $date2 - $date1;
+        $time = $time / 60;
+        return floor($time / 60) . "." . $time % 60;
     }
 }
